@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sundaland-frontend
+  namespace: sundaland
+  labels:
+    app: sundaland-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sundaland-frontend
+  template:
+    metadata:
+      labels:
+        app: sundaland-frontend
+    spec:
+      containers:
+      - name: sundaland-frontend
+        image: registry.cri.epita.fr/ing/majeures/tc/info/sundaland/sundaland-frontend:1.0.0
+        ports:
+        - containerPort: 8080

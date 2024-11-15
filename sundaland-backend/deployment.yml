@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sundaland-backend
+  namespace: sundaland
+  labels:
+    app: sundaland-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sundaland-backend
+  template:
+    metadata:
+      labels:
+        app: sundaland-backend
+    spec:
+      containers:
+      - name: sundaland-backend
+        image: registry.cri.epita.fr/ing/majeures/tc/info/sundaland/sundaland-backend:1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SUNDALAND_MONGODB_HOST
+          value: "mongodb.sundaland.svc.cluster.local"
+        - name: SUNDALAND_MONGODB_DATABASE
+          value: "sundaland"
+        - name: SUNDALAND_MONGODB_USER
+          valueFrom:
+            secretKeyRef:
+              name: sundaland-mongodb-credentials
+              key: SUNDALAND_MONGODB_USER
+        - name: SUNDALAND_MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sundaland-mongodb-credentials
+              key: SUNDALAND_MONGODB_PASSWORD
