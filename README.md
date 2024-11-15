@@ -1,4 +1,4 @@
-# kubernetes-p1
+# kubernetes project
 
 
 ![Infrastructure Diagram](architecture.png)
